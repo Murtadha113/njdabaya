@@ -1,5 +1,4 @@
 import { initializeApp, getApps, getApp, cert } from "firebase-admin/app"
-import { getAuth } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 
 const adminConfig = {
@@ -10,7 +9,6 @@ const adminConfig = {
 
 const isFreshApp = getApps().length === 0
 export const adminApp = isFreshApp ? initializeApp({ credential: cert(adminConfig) }) : getApp()
-export const adminAuth = getAuth(adminApp)
 export const adminDb = getFirestore(adminApp)
 if (isFreshApp) {
   adminDb.settings({ ignoreUndefinedProperties: true })

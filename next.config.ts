@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  // firebase-admin يستخدم require ديناميكي لا يتوافق مع تجميع Next.js للسيرفر —
+  // لازم يستثنى ويُحمّل مباشرة من node_modules وقت التشغيل، وإلا يفشل على Vercel
+  // بخطأ "Failed to load external module firebase-admin".
+  serverExternalPackages: ["firebase-admin"],
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "firebasestorage.googleapis.com" },
