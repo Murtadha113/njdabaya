@@ -160,10 +160,10 @@ export function ProductDetail({ product }: { product: Product }) {
         </div>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <Button size="lg" onClick={handleBuyNow} className="flex-1">
+          <Button size="lg" onClick={handleBuyNow} className="h-12 flex-1 rounded-full text-sm">
             شراء الآن
           </Button>
-          <Button size="lg" variant="outline" onClick={handleAddToCart} className="flex-1 gap-2">
+          <Button size="lg" variant="outline" onClick={handleAddToCart} className="h-12 flex-1 gap-2 rounded-full text-sm">
             <ShoppingBag className="size-4" />
             أضيفي للسلة
           </Button>
@@ -172,14 +172,14 @@ export function ProductDetail({ product }: { product: Product }) {
         <div className="mt-3 flex gap-3">
           <button
             onClick={() => toggleWish(product.id)}
-            className="flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-md border border-border text-sm"
+            className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full border border-border text-sm text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
           >
             <Heart className={cn("size-4", isWished && "fill-destructive text-destructive")} />
             {isWished ? "في المفضلة" : "أضيفي للمفضلة"}
           </button>
           <button
             onClick={handleShare}
-            className="flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-md border border-border text-sm"
+            className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full border border-border text-sm text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
           >
             <Share2 className="size-4" />
             مشاركة
