@@ -1,4 +1,5 @@
 import { after } from "next/server"
+import { cacheImage } from "./image-cache"
 
 export async function uploadToImgbb(fileBuffer: Buffer, name?: string): Promise<string> {
   const apiKey = process.env.IMGBB_API_KEY
@@ -20,36 +21,16 @@ export async function uploadToImgbb(fileBuffer: Buffer, name?: string): Promise<
 
   const url = data.data.url as string
 
-  // نسخّن الصورة فور رفعها بدل ما نعتمد على تشغيل سكربت تسخين يدوي بعد كل رفعة.
-  // أي صورة تُرفع من الأدمن أو أي استيراد مستقبلي تمر من هنا، فالتسخين مضمون
-  // تلقائياً من نفس نقطة الرفع، مو خطوة منفصلة يسهل نسيانها.
+  // نخزّن نفس البايتات اللي بأيدينا أصلاً مباشرة بالفايرستور — بدون أي طلب شبكة
+  // إضافي لـ ImgBB. فبمجرد رفع الصورة، عرضها للزوار يصير فوراً ودائماً من عندنا،
+  // بغض النظر عن سرعة أو استقرار ImgBB لاحقاً.
   try {
-    after(() => warmImageCache(url))
+    after(() => cacheImage(url, fileBuffer))
   } catch {
     // uploadToImgbb تُستدعى أيضاً من سكربتات مستقلة (import-instagram-products.ts)
-    // ما فيها سياق طلب HTTP، فـ after() ما تشتغل هناك — نسخّن مباشرة بدلاً منها.
-    await warmImageCache(url)
+    // بدون سياق طلب HTTP، فـ after() ما تشتغل هناك — نخزّن مباشرة بدلاً منها.
+    await cacheImage(url, fileBuffer)
   }
 
   return url
-}
-
-/**
- * ImgBB بطيء جداً على أول طلب لصورة (20-40 ثانية) لكنه يسرّع تلقائياً على الطلبات
- * المتكررة لنفس الرابط (مقاس فعلياً: ~22s ← ~9s ← ~3s). نسخّن الأصل عند ImgBB
- * نفسه، ثم نمرّ على بروكسي الموقع (/api/img) عشان كاش فيرسال يخزّن الصورة قبل
- * ما يوصلها أي زائر حقيقي.
- */
-async function warmImageCache(url: string) {
-  try {
-    await fetch(url).catch(() => {})
-    await fetch(url).catch(() => {})
-
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-    if (siteUrl && !siteUrl.includes("localhost")) {
-      await fetch(`${siteUrl}/api/img?u=${encodeURIComponent(url)}`).catch(() => {})
-    }
-  } catch {
-    // التسخين تحسين إضافي فقط، أي فشل هنا ما يوقف رفع الصورة أبداً
-  }
 }
