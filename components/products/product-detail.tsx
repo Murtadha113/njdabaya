@@ -160,10 +160,10 @@ export function ProductDetail({ product }: { product: Product }) {
         </div>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <Button size="lg" onClick={handleBuyNow} className="h-12 flex-1 rounded-full text-sm">
+          <Button size="lg" onClick={handleBuyNow} className="h-12 w-full rounded-full text-sm sm:flex-1">
             شراء الآن
           </Button>
-          <Button size="lg" variant="outline" onClick={handleAddToCart} className="h-12 flex-1 gap-2 rounded-full text-sm">
+          <Button size="lg" variant="outline" onClick={handleAddToCart} className="h-12 w-full gap-2 rounded-full text-sm sm:flex-1">
             <ShoppingBag className="size-4" />
             أضيفي للسلة
           </Button>
