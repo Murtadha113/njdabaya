@@ -3,11 +3,13 @@
 import { useState } from "react"
 import Image from "next/image"
 import { cn, imgSrc } from "@/lib/utils"
+import { ProductImageLightbox } from "./product-image-lightbox"
 
 export function ProductGallery({ images, name }: { images: string[]; name: string }) {
   const [active, setActive] = useState(0)
   const [zoom, setZoom] = useState(false)
   const [origin, setOrigin] = useState("50% 50%")
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   return (
     <div className="flex flex-col-reverse gap-3 md:flex-row">
@@ -28,9 +30,11 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
 
       <div
         className="relative aspect-[3/4] flex-1 cursor-zoom-in overflow-hidden rounded-xl bg-muted"
-        onMouseEnter={() => setZoom(true)}
-        onMouseLeave={() => setZoom(false)}
-        onMouseMove={(e) => {
+        onClick={() => setLightboxOpen(true)}
+        onPointerEnter={(e) => e.pointerType === "mouse" && setZoom(true)}
+        onPointerLeave={(e) => e.pointerType === "mouse" && setZoom(false)}
+        onPointerMove={(e) => {
+          if (e.pointerType !== "mouse") return
           const rect = e.currentTarget.getBoundingClientRect()
           const x = ((e.clientX - rect.left) / rect.width) * 100
           const y = ((e.clientY - rect.top) / rect.height) * 100
@@ -50,6 +54,16 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
           )}
         />
       </div>
+
+      {lightboxOpen && (
+        <ProductImageLightbox
+          images={images}
+          name={name}
+          index={active}
+          onIndexChange={setActive}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
     </div>
   )
 }
