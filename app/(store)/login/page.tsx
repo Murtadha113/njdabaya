@@ -66,20 +66,16 @@ export default function LoginPage() {
     router.push("/account")
   }
 
-  function handleSocial(name: string) {
-    toast.info(`تسجيل الدخول عبر ${name} قريباً`)
-  }
-
   return (
     <div className="relative overflow-hidden bg-gradient-to-b from-secondary/60 via-background to-background px-4 py-16 md:py-24">
       <div className="pointer-events-none absolute -top-24 start-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 end-0 h-56 w-56 rounded-full bg-primary/5 blur-3xl" />
 
       <div className="relative mx-auto w-full max-w-sm">
-        <div className="relative rounded-4xl border border-border/70 bg-card/90 px-7 pt-14 pb-8 shadow-lg backdrop-blur-sm">
-          <div className="absolute -top-9 start-1/2 -translate-x-1/2">
-            <div className="flex size-[4.5rem] items-center justify-center rounded-3xl bg-primary shadow-md ring-4 ring-background">
-              <Image src="/images/njd-badge-square.png" alt="نجد" width={40} height={40} className="rounded-lg" />
+        <div className="relative rounded-4xl border border-border/70 bg-card/90 px-7 pt-16 pb-8 shadow-lg backdrop-blur-sm">
+          <div className="absolute -top-11 start-1/2 -translate-x-1/2">
+            <div className="flex size-24 items-center justify-center overflow-hidden rounded-full shadow-md ring-4 ring-background">
+              <Image src="/images/njd-badge-square.png" alt="نجد" width={96} height={96} className="size-full object-cover" />
             </div>
           </div>
 
@@ -175,30 +171,6 @@ export default function LoginPage() {
               </motion.form>
             )}
           </AnimatePresence>
-
-          <div className="my-6 flex items-center gap-3">
-            <div className="h-px flex-1 bg-border" />
-            <span className="text-xs text-muted-foreground">أو تابعي عبر</span>
-            <div className="h-px flex-1 bg-border" />
-          </div>
-
-          <div className="flex items-center justify-center gap-3">
-            {[
-              { name: "Google", label: "G" },
-              { name: "Apple", label: "" },
-              { name: "Facebook", label: "f" },
-            ].map((p) => (
-              <button
-                key={p.name}
-                type="button"
-                onClick={() => handleSocial(p.name)}
-                aria-label={p.name}
-                className="flex size-11 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold text-foreground shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md"
-              >
-                {p.label}
-              </button>
-            ))}
-          </div>
 
           <p className="mt-7 text-center text-sm text-muted-foreground">
             {mode === "login" ? (
