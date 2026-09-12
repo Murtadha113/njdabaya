@@ -17,14 +17,24 @@ export function Hero() {
   return (
     <section ref={ref} className="relative flex h-[88vh] min-h-[560px] items-center justify-center overflow-hidden bg-primary">
       <motion.div style={{ y }} className="absolute inset-0">
+        {/* جوال: صورة وحدة كاملة العرض */}
         <Image
-          src="/images/black-2.jpg"
+          src="/images/hero-1.jpg"
           alt=""
           fill
           priority
-          className="object-cover opacity-70"
+          className="object-cover object-top opacity-80 md:hidden"
           sizes="100vw"
         />
+        {/* كمبيوتر: صورتين جنب بعض */}
+        <div className="hidden size-full md:flex">
+          <div className="relative h-full flex-1">
+            <Image src="/images/hero-1.jpg" alt="" fill priority className="object-cover object-top opacity-80" sizes="50vw" />
+          </div>
+          <div className="relative h-full flex-1">
+            <Image src="/images/hero-2.jpg" alt="" fill priority className="object-cover object-top opacity-80" sizes="50vw" />
+          </div>
+        </div>
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-primary/10" />
 
@@ -34,15 +44,14 @@ export function Hero() {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 mx-auto max-w-2xl px-6 text-center text-primary-foreground"
       >
-        <span className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-gold">
-          <Sparkles className="size-3.5" />
-          مجموعة الموسم الجديدة
+        <span dir="ltr" className="mb-5 inline-block text-xs font-medium tracking-[0.35em] text-primary-foreground/80">
+          NJD
         </span>
-        <h1 className="font-heading text-4xl leading-tight md:text-6xl">
-          حيث تلتقي الحشمة بالفخامة
+        <h1 dir="ltr" className="font-heading text-4xl leading-tight tracking-wide md:text-6xl">
+          BY FATIMA ALNAJEM
         </h1>
-        <p className="mx-auto mt-5 max-w-lg text-sm text-primary-foreground/80 md:text-base">
-          عبايات مصممة بعناية من أجود الأقمشة، لإطلالة تعكس أناقتك في كل تفصيلة
+        <p dir="ltr" className="mx-auto mt-5 max-w-lg font-heading text-lg text-primary-foreground/80 italic md:text-xl">
+          Where Elegance Begins
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <Link
