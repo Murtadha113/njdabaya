@@ -75,12 +75,9 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Testimonial)
 }
 
-const SHIPPING_ORDER = ["standard", "express", "pickup"]
-
 export async function getShippingMethods(): Promise<ShippingMethod[]> {
-  const snap = await adminDb.collection("shippingMethods").get()
-  const methods = snap.docs.map((d) => ({ id: d.id, ...d.data() }) as ShippingMethod)
-  return methods.sort((a, b) => SHIPPING_ORDER.indexOf(a.id) - SHIPPING_ORDER.indexOf(b.id))
+  const snap = await adminDb.collection("shippingMethods").orderBy("order").get()
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as ShippingMethod)
 }
 
 export async function getOrders(): Promise<MockOrder[]> {

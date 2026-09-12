@@ -15,3 +15,9 @@ export async function PATCH(req: Request, props: { params: Promise<{ id: string 
   await adminDb.collection("shippingMethods").doc(id).update(update)
   return NextResponse.json({ ok: true })
 }
+
+export async function DELETE(_req: Request, props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params
+  await adminDb.collection("shippingMethods").doc(id).delete()
+  return NextResponse.json({ ok: true })
+}

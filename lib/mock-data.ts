@@ -181,6 +181,7 @@ export interface ShippingMethod {
   price: number
   freeAbove?: number
   isActive?: boolean
+  order?: number
 }
 
 export const shippingMethods: ShippingMethod[] = [
