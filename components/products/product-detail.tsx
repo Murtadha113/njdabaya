@@ -240,17 +240,6 @@ export function ProductDetail({ product }: { product: Product }) {
           </TabsContent>
         </Tabs>
       </div>
-
-      <div className="fixed inset-x-0 bottom-[88px] z-30 flex items-center gap-3 border-t border-border bg-background/95 p-3 backdrop-blur md:hidden">
-        <div>
-          <p className="text-xs text-muted-foreground">السعر</p>
-          <p className="text-lg font-semibold">{formatPrice(product.price)}</p>
-        </div>
-        <Button size="lg" onClick={handleAddToCart} className="h-12 flex-1 gap-2 rounded-full text-sm">
-          <ShoppingBag className="size-4" />
-          أضيفي للسلة
-        </Button>
-      </div>
     </div>
   )
 }
