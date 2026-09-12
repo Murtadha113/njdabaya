@@ -1,0 +1,12 @@
+rules_version = '2';
+
+// كل القراءة والكتابة تمر عبر السيرفر (Next.js Route Handlers) باستخدام Firebase Admin SDK،
+// اللي يتجاوز هذي القواعد تلقائياً. هذا يمنع أي وصول مباشر من متصفح العميل أو الأدمن
+// للداتا بيس، ويخلي كل التحقق من الصلاحيات والأسعار يصير بالسيرفر فقط.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

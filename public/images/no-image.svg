@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <rect width="400" height="500" fill="#EFEAE3"/>
+  <g stroke="#B9AF9F" stroke-width="1.5" fill="none">
+    <rect x="120" y="180" width="160" height="120" rx="4"/>
+    <circle cx="155" cy="212" r="12"/>
+    <path d="M120 280 L170 230 L210 260 L245 225 L280 270"/>
+  </g>
+  <text x="200" y="335" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#9C9282">لا توجد صورة بعد</text>
+</svg>
