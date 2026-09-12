@@ -246,7 +246,7 @@ export function ProductDetail({ product }: { product: Product }) {
           <p className="text-xs text-muted-foreground">السعر</p>
           <p className="text-lg font-semibold">{formatPrice(product.price)}</p>
         </div>
-        <Button size="lg" onClick={handleAddToCart} className="flex-1 gap-2">
+        <Button size="lg" onClick={handleAddToCart} className="h-12 flex-1 gap-2 rounded-full text-sm">
           <ShoppingBag className="size-4" />
           أضيفي للسلة
         </Button>
